@@ -4,143 +4,142 @@ const color = require("cli-color");
 
 class CliTable
 {
-    constructor(tableTitle = "Default Table", tableColor = "white", tableLength = process.stdout.columns)
+    constructor()
     {
-        this.tableTitle = tableTitle;
-        this.tableLength = tableLength;
-        this.tableColor = tableColor;
-        this.tableHeaderColumns = [  ];
-        this.tableRows = [];
+        this.tableTitle = "Default Table";
+        this.tableLength = process.stdout.columns;
+        this.tableColor = "white";
         this.tableFooterText = "Rows";
+        this.tableColumns = [];
+        this.tableRows = [];
 
-        this.showTableTitle = true;
+        this.showingTableRows = [];
 
-        this.inputLine = this.SetLineSize(tableLength);
-    }
-
-    SetTableTitle(title) { this.tableTitle = title }
-    SetTableLength(length) { this.tableLength = length }
-    SetTableHeaderColumns(headerColumns) { this.tableHeaderColumns = headerColumns }
-    SetTableColor(inputColor) { this.tableColor = inputColor }
-    SetTableFooterText(tableFooter) { this.tableFooterText = tableFooter }
-
-    SetTableRows(tableRows) { this.tableRows = tableRows };
-    
-    SetLineSize(width)
-    {
-        let tempString = "";
-        
+        this.inputLine = "";
+            
         for (let i = 0; i < this.tableLength; i++)
         {
-            tempString += " ";
+            this.inputLine += " ";
         }
+    }
 
-        return tempString;
+    SetTableTitle(tableTitle) { this.tableTitle = tableTitle };
+    SetTableLength(length) { this.tableLength = length };
+    SetTableColor(inputColor) { this.tableColor = inputColor };
+    SetTableColumns(tableColumns) { this.tableColumns = tableColumns }
+    SetTableRows(tableRows) { this.tableRows = tableRows };
+
+    GetRowAmount()
+    {
+        return this.showingTableRows.length;
     }
 
     HandlePadding(length)
     {
         let tempString = "";
 
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < length; i++)
+        {
             tempString += " ";
         }
 
         return tempString;
     }
 
-    CreateTableTitle(title)
+    CreateTableColumn(text, width, first)
     {
-        let titlePadding = Math.round((this.tableLength - title.length) / 2);
+        const columnSize = width - 2;
+
+        let tempString = `${first ? "" : "|" } ` + text.toString();
+        
+        tempString += this.HandlePadding(columnSize - text.toString().length);
+
+        tempString += " ";
+        
+        return tempString;
+    }
+
+    CreateTableTitle()
+    {
+        let titlePadding = Math.round((this.tableLength - this.tableTitle.length) / 2);
         
         let tempString = `\n${this.HandlePadding(titlePadding)}${this.tableTitle}${this.HandlePadding(titlePadding)}\n`;
 
-        console.log(color.bold.underline(tempString.substr(0, this.tableLength + 1)));
+        console.log(color[this.tableColor].bold.underline(tempString.substr(0, this.tableLength + 1)));
     }
 
-    CreateTableHeader(headerColumns)
+    CreateTableHeader()
     {
         let headerString = '';
 
-        for (let i = 0; i < headerColumns.length; i++) 
+        this.tableColumns.forEach((element, i) =>
         {
-            headerString += this.CreateTableColumn(headerColumns[i], i === 0 ? true : false);
-        }
-
-        console.log("\n" + color.bold.bgWhite.black(headerString.substr(0, this.tableLength)));
-    }
-
-    CreateTableColumn(columnInput, first = false)
-    {
-        const columnSize = Math.round(this.tableLength / this.tableHeaderColumns.length);
-
-        let tempString = `${first ? "" : "|" } ` + columnInput.toString();
-
-        for (let i = 0; i < columnSize - columnInput.length; i++) {
-            tempString += " ";
-        }
-
-        return tempString;
-    }
-
-    CreateTableBody()
-    {
-        let tableBodyString = "";
-
-        this.tableRows.forEach(row => {
-            tableBodyString +=  this.CreateTableRow(row).substr(0, this.tableLength);
+            headerString += this.CreateTableColumn(element.title || element.key, element.width || element.title.length || element.key.length, i === 0 ? true : false);
         });
 
-        console.log(tableBodyString);
+        const lineLength = this.tableLength - headerString.length
+
+        if (headerString.length <= this.tableLength)
+        {
+            headerString += this.HandlePadding(lineLength);
+        }
+
+        console.log("\n" + color[this.tableColor].inverse.bold(headerString.substr(0, this.tableLength)));
     }
 
     CreateTableRow(rowContent)
     {
-        let rowString = "";
-        let isFirst = true;
+        let tempRowString = "";
 
-        for (let row in rowContent)
+        this.showingTableRows.push(rowContent);
+    
+        for (let column in rowContent)
         {
-            if (isFirst)
+            this.tableColumns.forEach((element, i) =>
             {
-                rowString += this.CreateTableColumn(rowContent[row], true);
-                isFirst = false;
-            }
-            else
-            {
-                rowString += this.CreateTableColumn(rowContent[row], false);
-            }
+                if (element.key === column)
+                {
+                    tempRowString += this.CreateTableColumn(rowContent[column], element.width, i == 0 ? true : false);
+                }    
+            });
         }
-
-        return rowString;
+        
+        console.log(tempRowString);
     }
 
-    CreateTableFooter()
+    CreateTableBody()
     {
-        let rowInfo = `${this.tableFooterText}: ${ this.tableRows.length }`;
+        this.CreateTableTitle();
+        this.CreateTableHeader();
+
+        this.tableRows.forEach(element => {
+            this.CreateTableRow(element);
+        });
+    }
+
+    CreateTableFooter(text)
+    {
         
         let footerString = "";
-        let footerStringLength = rowInfo.length;
+        let footerStringLength = text.length;
 
         for (let i = 0; i < (this.tableLength - footerStringLength) - 1; i++) {
             footerString += " ";
         }
 
-        footerString += rowInfo + " ";
+        footerString += text + " ";
 
         console.log(color.bold.bgWhite.black(footerString.substr(0, this.tableLength)) + "\n");
     }
 
-    Table()
+    AddTableRow(rowContent)
     {
-        if (this.showTableTitle)
-        {
-            this.CreateTableTitle(this.tableTitle);
-        }
+        this.CreateTableRow(rowContent);
+    }
 
-        this.CreateTableHeader(this.tableHeaderColumns);
+    ShowTable()
+    {
         this.CreateTableBody();
-        this.CreateTableFooter();
     }
 }
 

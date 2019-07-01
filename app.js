@@ -45,7 +45,7 @@ table.SetTableRows([
     },
     {
         id: 3,
-        title: 'Thinfy 3',
+        title: 'Thingy 3',
         version: '0.1.0',
         author: 'F. Rick Reich'
     }
@@ -75,6 +75,24 @@ table.AddTableRow(
         version: `0.${Math.floor((Math.random() * 10) + 1)}.${Math.floor((Math.random() * 10) + 1)}`,
         author: 'F. Rick Reich'
     }
+, 'success');
+
+table.AddTableRow(
+    {
+        id: table.GetRowAmount() + 1,
+        title: `${ Math.random().toString(36).substring(2, 12) + Math.random().toString(24).substring(2, 12) }`,
+        version: `0.${ Math.floor((Math.random() * 10) + 1) }.${ Math.floor((Math.random() * 10) + 1) }`,
+        author: 'F. Rick Reich'
+    }
+, 'danger');
+
+table.AddTableRow(
+    {
+        id:  table.GetRowAmount() + 1,
+        title: `${Math.random().toString(36).substring(2, 12) + Math.random().toString(24).substring(2, 12)}`,
+        version: `0.${Math.floor((Math.random() * 10) + 1)}.${Math.floor((Math.random() * 10) + 1)}`,
+        author: 'F. Rick Reich'
+    }
 );
 
-table.CreateTableFooter("Rows: " + table.GetRowAmount());
+table.AddTableFooter("Rows: " + table.GetRowAmount());

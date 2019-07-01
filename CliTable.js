@@ -15,6 +15,7 @@ class CliTable
 
         this.showingTableRows = [];
 
+        this.lineLength = this.tableLength;
         this.inputLine = "";
 
         for (let i = 0; i < this.tableLength; i++)
@@ -75,6 +76,8 @@ class CliTable
 
         tempString += " ";
 
+        this.lineLength -= tempString.length;
+
         return tempString;
     }
 
@@ -84,7 +87,7 @@ class CliTable
 
         let tempString = `\n${this.HandlePadding(titlePadding)}${this.tableTitle}${this.HandlePadding(titlePadding)}\n`;
 
-        console.log(color[this.tableColor].bold.underline(tempString.substr(0, this.tableLength + 1)));
+        return tempString.substr(0, this.tableLength + 1);
     }
 
     CreateTableHeader()
@@ -110,11 +113,13 @@ class CliTable
             headerString += this.HandlePadding(lineLength);
         }
 
-        console.log("\n" + color[this.tableColor].inverse.bold(headerString.substr(0, this.tableLength)));
+        return headerString.substr(0, this.tableLength);
     }
 
     CreateTableRow(rowContent)
     {
+        this.lineLength = this.tableLength;
+
         let tempRowString = "";
 
         this.showingTableRows.push(rowContent);
@@ -130,17 +135,20 @@ class CliTable
             });
         }
 
-        console.log(tempRowString);
+        tempRowString += this.HandlePadding(this.lineLength)
+
+        return tempRowString;
     }
 
     CreateTableBody()
     {
-        this.CreateTableTitle();
-        this.CreateTableHeader();
+        console.log(color[this.tableColor].bold.underline(this.CreateTableTitle()));
+
+        console.log("\n" + color[this.tableColor].inverse.bold(this.CreateTableHeader()));
 
         this.tableRows.forEach(element =>
         {
-            this.CreateTableRow(element);
+            this.AddTableRow(element);
         });
     }
 
@@ -156,12 +164,32 @@ class CliTable
 
         footerString += text + " ";
 
-        console.log(color.bold.bgWhite.black(footerString.substr(0, this.tableLength)) + "\n");
+        return footerString.substr(0, this.tableLength);
     }
 
-    AddTableRow(rowContent)
+    AddTableRow(rowContent, rowState = null)
     {
-        this.CreateTableRow(rowContent);
+        if (rowState === null)
+        {
+            console.log(color[this.tableColor](this.CreateTableRow(rowContent)));    
+        }
+        else if(rowState === "success")
+        {
+            console.log(color[this.tableColor][`bgGreen`](this.CreateTableRow(rowContent)));    
+        }
+        else if (rowState === "warning")
+        {
+            console.log(color[this.tableColor][`bgYellow`](this.CreateTableRow(rowContent)));    
+        }
+        else if (rowState === "danger")
+        {
+            console.log(color[this.tableColor][`bgRed`](this.CreateTableRow(rowContent)));    
+        }
+    }
+
+    AddTableFooter(text)
+    {
+        console.log(color.bold.bgWhite.black(this.CreateTableFooter(text)));
     }
 
     ShowTable()

@@ -53,18 +53,12 @@ table.SetTableRows([
 
 table.ShowTable();
 
+/*
 (function theLoop(i)
 {
     setTimeout(function ()
     {
-        table.AddTableRow(
-            {
-                id:  table.GetRowAmount() + 1,
-                title: `${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}`,
-                version: `0.${Math.floor((Math.random() * 10) + 1)}.0`,
-                author: 'F. Rick Reich'
-            }
-        );
+        // Repeating content.
 
         if (--i)
         {
@@ -72,5 +66,15 @@ table.ShowTable();
         }
     }, 3000);
 })(10);
-  
-//table.CreateTableFooter("Rows: " + table.GetRowAmount());
+*/
+
+table.AddTableRow(
+    {
+        id:  table.GetRowAmount() + 1,
+        title: `${Math.random().toString(36).substring(2, 12) + Math.random().toString(24).substring(2, 12)}`,
+        version: `0.${Math.floor((Math.random() * 10) + 1)}.${Math.floor((Math.random() * 10) + 1)}`,
+        author: 'F. Rick Reich'
+    }
+);
+
+table.CreateTableFooter("Rows: " + table.GetRowAmount());

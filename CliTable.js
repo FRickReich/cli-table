@@ -6,17 +6,16 @@ class CliTable
 {
     constructor()
     {
-        this.tableTitle = "Default Table";
+        this.tableTitle = 'Default Table';
         this.tableLength = process.stdout.columns;
-        this.tableColor = "white";
-        this.tableFooterText = "Rows";
+        this.tableColor = 'white';
         this.tableColumns = [];
         this.tableRows = [];
 
         this.showingTableRows = [];
 
         this.lineLength = this.tableLength;
-        this.inputLine = "";
+        this.inputLine = '';
 
         for (let i = 0; i < this.tableLength; i++)
         {
@@ -56,11 +55,11 @@ class CliTable
 
     HandlePadding(length)
     {
-        let tempString = "";
+        let tempString = '';
 
         for (let i = 0; i < length; i++)
         {
-            tempString += " ";
+            tempString += ' ';
         }
 
         return tempString;
@@ -70,7 +69,7 @@ class CliTable
     {
         const columnSize = width - 2;
 
-        let tempString = `${first ? "" : "|" } ` + text.toString();
+        let tempString = `${first ? '' : '|' } ` + text.toString();
 
         tempString += this.HandlePadding(columnSize - text.toString().length);
 
@@ -120,7 +119,7 @@ class CliTable
     {
         this.lineLength = this.tableLength;
 
-        let tempRowString = "";
+        let tempRowString = '';
 
         this.showingTableRows.push(rowContent);
 
@@ -144,7 +143,7 @@ class CliTable
     {
         console.log(color[this.tableColor].bold.underline(this.CreateTableTitle()));
 
-        console.log("\n" + color[this.tableColor].inverse.bold(this.CreateTableHeader()));
+        console.log('\n' + color[this.tableColor].inverse.bold(this.CreateTableHeader()));
 
         this.tableRows.forEach(element =>
         {
@@ -159,10 +158,10 @@ class CliTable
 
         for (let i = 0; i < (this.tableLength - footerStringLength) - 1; i++)
         {
-            footerString += " ";
+            footerString += ' ';
         }
 
-        footerString += text + " ";
+        footerString += text + ' ';
 
         return footerString.substr(0, this.tableLength);
     }
@@ -173,23 +172,23 @@ class CliTable
         {
             console.log(color[this.tableColor](this.CreateTableRow(rowContent)));    
         }
-        else if(rowState === "success")
+        else if(rowState === 'success')
         {
-            console.log(color[this.tableColor][`bgGreen`](this.CreateTableRow(rowContent)));    
+            console.log(color[this.tableColor]['bgGreen'](this.CreateTableRow(rowContent)));    
         }
-        else if (rowState === "warning")
+        else if (rowState === 'warning')
         {
-            console.log(color[this.tableColor][`bgYellow`](this.CreateTableRow(rowContent)));    
+            console.log(color[this.tableColor]['bgYellow'](this.CreateTableRow(rowContent)));    
         }
-        else if (rowState === "danger")
+        else if (rowState === 'danger')
         {
-            console.log(color[this.tableColor][`bgRed`](this.CreateTableRow(rowContent)));    
+            console.log(color[this.tableColor]['bgRed'](this.CreateTableRow(rowContent)));    
         }
     }
 
     AddTableFooter(text)
     {
-        console.log(color.bold.bgWhite.black(this.CreateTableFooter(text)));
+        console.log(color.bold.bgWhite.black(this.CreateTableFooter(text)) + '\n');
     }
 
     ShowTable()

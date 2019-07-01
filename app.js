@@ -1,7 +1,5 @@
 'use strict';
 
-const color = require("cli-color");
-
 const CliTable = require('./CliTable');
 
 const table = new CliTable();
@@ -74,8 +72,9 @@ table.AddTableRow(
         title: `${Math.random().toString(36).substring(2, 12) + Math.random().toString(24).substring(2, 12)}`,
         version: `0.${Math.floor((Math.random() * 10) + 1)}.${Math.floor((Math.random() * 10) + 1)}`,
         author: 'F. Rick Reich'
-    }
-, 'success');
+    },
+    'success'
+);
 
 table.AddTableRow(
     {
@@ -83,8 +82,9 @@ table.AddTableRow(
         title: `${ Math.random().toString(36).substring(2, 12) + Math.random().toString(24).substring(2, 12) }`,
         version: `0.${ Math.floor((Math.random() * 10) + 1) }.${ Math.floor((Math.random() * 10) + 1) }`,
         author: 'F. Rick Reich'
-    }
-, 'danger');
+    },
+    'danger'
+);
 
 table.AddTableRow(
     {

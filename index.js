@@ -61,9 +61,9 @@ class CliTable
      * @summary Gets and sets an array-object of the columns used in the table.
      * @param {object} tableColumns - List of columns/keys the table will use.
      */
-    async SetTableColumns(tableColumns)
+    SetTableColumns(tableColumns)
     {
-        this.tableColumns = await tableColumns
+        this.tableColumns = tableColumns
     }
 
     /**
@@ -249,23 +249,23 @@ class CliTable
      * @param {string} rowContent - Content of a single row, derived from input.
      * @param {boolean} rowState - State of the row information: null (default), "success", "warning" and "danger"
      */
-    async AddTableRow(rowContent, rowState = null)
+    AddTableRow(rowContent, rowState = null)
     {
         if (rowState === null)
         {
-            console.log(color[this.tableColor](await this.CreateTableRow(rowContent)));    
+            console.log(color[this.tableColor](this.CreateTableRow(rowContent)));    
         }
         else if(rowState === 'success')
         {
-            console.log(color[this.tableColor]['bgGreen'](await this.CreateTableRow(rowContent)));    
+            console.log(color[this.tableColor]['bgGreen'](this.CreateTableRow(rowContent)));    
         }
         else if (rowState === 'warning')
         {
-            console.log(color[this.tableColor]['bgYellow'](await this.CreateTableRow(rowContent)));    
+            console.log(color[this.tableColor]['bgYellow'](this.CreateTableRow(rowContent)));    
         }
         else if (rowState === 'danger')
         {
-            console.log(color[this.tableColor]['bgRed'](await this.CreateTableRow(rowContent)));    
+            console.log(color[this.tableColor]['bgRed'](this.CreateTableRow(rowContent)));    
         }
     }
 

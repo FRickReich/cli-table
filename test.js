@@ -1,11 +1,11 @@
 'use strict';
 
-const CliTable = require('./CliTable');
+const CliTable = require('./index.js');
 
 const table = new CliTable();
 
 table.SetTableTitle("Test Table");
-table.SetTableLength(80);
+//table.SetTableLength(80);
 table.SetTableColumns([
     {
         key: 'id',
@@ -48,23 +48,8 @@ table.SetTableRows([
         author: 'F. Rick Reich'
     }
 ]);
-
 table.ShowTable();
 
-/*
-(function theLoop(i)
-{
-    setTimeout(function ()
-    {
-        // Repeating content.
-
-        if (--i)
-        {
-            theLoop(i);
-        }
-    }, 3000);
-})(10);
-*/
 
 table.AddTableRow(
     {
@@ -96,3 +81,18 @@ table.AddTableRow(
 );
 
 table.AddTableFooter("Rows: " + table.GetRowAmount());
+
+/*
+(function theLoop(i)
+{
+    setTimeout(function ()
+    {
+        // Repeating content.
+
+        if (--i)
+        {
+            theLoop(i);
+        }
+    }, 3000);
+})(10);
+*/

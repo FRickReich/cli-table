@@ -4,6 +4,9 @@ const color = require("cli-color");
 
 class CliTable
 {
+    /**
+     * @constructor
+     */
     constructor()
     {
         this.tableTitle = 'Default Table';
@@ -23,36 +26,72 @@ class CliTable
         }
     }
 
+    /**
+     * @function SetTableTitle
+     * @summary Sets the header-title of the Table.
+     * @param {string} tableTitle - Title of the table.
+     */
     SetTableTitle(tableTitle)
     {
         this.tableTitle = tableTitle
     }
-
-    SetTableLength(length)
-    {
-        this.tableLength = length
-    }
-
+    
+    /**
+     * @function SetTableColor
+     * @summary Sets background-color of the Table.
+     * @param {string} inputColor - Color of the table and/or background.
+     */
     SetTableColor(inputColor)
     {
         this.tableColor = inputColor
     }
 
+    /**
+     * @function SetTableLength
+     * @summary Sets the length-in-letters of the Table.
+     * @param {number} length - Lenghts(width) of the Table.
+     */
+    SetTableLength(length)
+    {
+        this.tableLength = length
+    }
+
+    /**
+     * @function SetTableColumns
+     * @summary Gets and sets an array-object of the columns used in the table.
+     * @param {object} tableColumns - List of columns/keys the table will use.
+     */
     SetTableColumns(tableColumns)
     {
         this.tableColumns = tableColumns
     }
 
+    /**
+     * @function SetTableRows
+     * @summary Gets and Sets an array-object of the rows used in the table.
+     * @param {object} tableRows - List of rows with data to be used in the table.
+     */
     SetTableRows(tableRows)
     {
         this.tableRows = tableRows
     }
 
+    /**
+     * @function GetRowAmount
+     * @summary Gets the amount of rows used in the table and returns it.
+     * @returns {number}
+     */
     GetRowAmount()
     {
         return this.showingTableRows.length;
     }
 
+    /**
+     * @function HandlePadding
+     * @summary Handles padding to either side of the line text and returns a string filled with spaces.
+     * @param {number} length - Length of padding.
+     * @returns {string}
+     */
     HandlePadding(length)
     {
         let tempString = '';
@@ -65,6 +104,15 @@ class CliTable
         return tempString;
     }
 
+    /**
+     * @function CreateTableColumn
+     * @summary Creates a column, and fills it with text and returns it. Optional, 
+     *          it can also change column appearance for the first column in a line.
+     * @param {string} text - Text displayed inside of the column.
+     * @param {number} width - Width of the column.
+     * @param {boolean} first - Is first column in row?
+     * @returns {string}
+     */
     CreateTableColumn(text, width, first)
     {
         const columnSize = width - 2;
@@ -80,6 +128,11 @@ class CliTable
         return tempString;
     }
 
+    /**
+     * @function CreateTableTitle
+     * @summary Creates a string containing the title of the table centered and underlined and returns it.
+     * @returns {string}
+     */
     CreateTableTitle()
     {
         let titlePadding = Math.round((this.tableLength - this.tableTitle.length) / 2);
@@ -89,6 +142,11 @@ class CliTable
         return tempString.substr(0, this.tableLength + 1);
     }
 
+    /**
+     * @function CreateTableHeader
+     * @summary Creates the header of the table, including all its columns and returns it.
+     * @returns {string}
+     */
     CreateTableHeader()
     {
         let headerString = '';
@@ -115,6 +173,12 @@ class CliTable
         return headerString.substr(0, this.tableLength);
     }
 
+    /**
+     * @function CreateTableRow
+     * @summary Creates a row filled with columns and returns it.
+     * @param {string} rowContent - Content of a single row, derived from input.
+     * @returns {string}
+     */
     CreateTableRow(rowContent)
     {
         this.lineLength = this.tableLength;
@@ -139,6 +203,10 @@ class CliTable
         return tempRowString;
     }
 
+    /**
+     * @function CreateTableBody
+     * @summary Creates the body of the table, including title, header, and body.
+     */
     CreateTableBody()
     {
         console.log(color[this.tableColor].bold.underline(this.CreateTableTitle()));
@@ -149,8 +217,16 @@ class CliTable
         {
             this.AddTableRow(element);
         });
+
+        return true;
     }
 
+    /**
+     * @function CreateTableFooter
+     * @summary Creates the footer of the table, including right aligned text with one space padding to the right.
+     * @param {string} text - Text displayed in footer.
+     * @returns {string}
+     */
     CreateTableFooter(text)
     {
         let footerString = "";
@@ -166,6 +242,13 @@ class CliTable
         return footerString.substr(0, this.tableLength);
     }
 
+    /**
+     * @function AddTableRow
+     * @summary Adds a row to the table and colorizes it according to its state. 
+     *          Can also be used after creation to interactively add new rows to the table.
+     * @param {string} rowContent - Content of a single row, derived from input.
+     * @param {boolean} rowState - State of the row information: null (default), "success", "warning" and "danger"
+     */
     AddTableRow(rowContent, rowState = null)
     {
         if (rowState === null)
@@ -186,11 +269,20 @@ class CliTable
         }
     }
 
+    /**
+     * @function AddTableFooter
+     * @summary Adds a footer to the table. 
+     */
     AddTableFooter(text)
     {
         console.log(color.bold.bgWhite.black(this.CreateTableFooter(text)) + '\n');
     }
 
+    /**
+     * @function ShowTable
+     * @summary Shows the table, this is used to initialize CreateTableBody().
+     * @see CreateTableBody
+     */
     ShowTable()
     {
         this.CreateTableBody();

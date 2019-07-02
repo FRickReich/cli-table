@@ -95,7 +95,10 @@ npm test
 ```
 
 ## Release History
-* 0.1.0 Initial Release
+* 0.1.0 - Initial Release
+* 0.1.1 - Implemented tests
+* 0.1.2 - Updated package.json
+* 0.1.3 - Added async functionality
 
 ## License
 Copyright (c) 2019 F. Rick Reich. Licensed under the terms of the MIT license. http://frickreich.mit-license.org/

@@ -1,11 +1,11 @@
 
-Cli-Table
+Tabletops
 =========
 
 A small tool that makes displaying tables in the terminal easy.
 
 ## Table of Contents
-- [Cli-Table](#Cli-Table)
+- [Tabletops](#Tabletops)
   - [Table of Contents](#Table-of-Contents)
   - [Installation](#Installation)
   - [Usage](#Usage)
@@ -17,13 +17,13 @@ A small tool that makes displaying tables in the terminal easy.
 ## Installation
 
 ```console
-npm install cli-table --save
+npm install tabletops --save
 ```
 
 ## Usage
 
 ```js
-const CliTable = require('cli-table');
+const CliTable = require('tabletops');
 ```
 Requires the module.
 

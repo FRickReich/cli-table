@@ -11,7 +11,6 @@ A small tool that makes displaying tables in the terminal easy.
   - [Usage](#Usage)
   - [Advanced Usage](#Advanced-Usage)
   - [Tests](#Tests)
-    - [ShowTable()](#ShowTable)
   - [Release History](#Release-History)
   - [License](#License)
 
@@ -94,9 +93,6 @@ Interactively adds a new row to the table (you should not add a footer to the sp
 ```console
 npm test
 ```
-
-### ShowTable()
-Shows the table, this is used to initialize CreateTableBody().
 
 ## Release History
 * 0.1.0 Initial Release

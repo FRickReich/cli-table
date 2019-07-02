@@ -1,6 +1,6 @@
 {
     "name": "tabletops",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "An easy to use table layout for the terminal.",
     "main": "index.js",
     "scripts": {
@@ -17,12 +17,7 @@
         "cli"
     ],
     "author": "F. Rick Reich <frickreich@gmail.com>",
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "http://frickreich.mit-license.org/"
-        }
-    ],
+    "license": "MIT",
     "dependencies": {
         "cli-color": "^1.4.0"
     },

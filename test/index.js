@@ -1,8 +1,8 @@
 
 const should = require('chai').should();
-const cliTable = require('../index');
+const TableTops = require('../index');
 
-const table = new cliTable();
+const table = new TableTops();
 
 // SetTableTitle
 table.SetTableTitle("Testing Table");

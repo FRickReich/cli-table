@@ -271,4 +271,4 @@ Shows the table, this is used to initialize CreateTableBody().
 * 0.1.0 Initial Release
 
 ## License
-asdf.
+Copyright (c) 2019 F. Rick Reich. Licensed under the terms of the MIT license. http://frickreich.mit-license.org/

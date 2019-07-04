@@ -46,7 +46,8 @@ table.SetTableRows([
 //HandlePadding
 describe('- HandlePadding', function ()
 {
-    it('creates a string filled with whitespace to create a padding.', function() {
+    it('creates a string filled with whitespace to create a padding.', function ()
+    {
         table.HandlePadding(5).should.equal('     ');
     });
 });
@@ -54,11 +55,13 @@ describe('- HandlePadding', function ()
 // CreateTableRow
 describe('- CreateTableColumn', function ()
 {
-    it('creates a column at the start of a row with a specified length.', function() {
+    it('creates a column at the start of a row with a specified length.', function ()
+    {
         table.CreateTableColumn("test", 20, true).should.equal(' test               ');
     });
 
-    it('creates a column inside of a row with the width a specified length.', function() {
+    it('creates a column inside of a row with the width a specified length.', function ()
+    {
         table.CreateTableColumn("test", 10, false).should.equal('| test     ');
     });
 });
@@ -66,7 +69,8 @@ describe('- CreateTableColumn', function ()
 //CreateTableTitle
 describe('- CreateTableTitle', function ()
 {
-    it('creates title header of the table.', function() {
+    it('creates title header of the table.', function ()
+    {
         table.CreateTableTitle().should.equal('\n              Testing Table             ');
     });
 });
@@ -92,7 +96,8 @@ describe('- CreateTableRow', function ()
 //GetRowAmount
 describe('- GetRowAmount', function ()
 {
-    it('gets the amount of rows in the table.', function() {
+    it('gets the amount of rows in the table.', function ()
+    {
         table.GetRowAmount().should.equal(1);
     });
 });
@@ -108,7 +113,8 @@ describe('- CreateTableBody', function ()
 //CreateTableFooter
 describe('- CreateTableFooter', function ()
 {
-    it('creates the table footer.', function() {
+    it('creates the table footer.', function ()
+    {
         table.CreateTableFooter('Rows: ' + table.GetRowAmount()).should.equal('                                Rows: 1 ');
     });
 });
